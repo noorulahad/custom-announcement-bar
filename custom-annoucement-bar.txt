@@ -1,0 +1,160 @@
+<style>
+  .custom-marquee {
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: {{ section.settings.colorBackground }};
+    color: {{ section.settings.colorText }};
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    box-sizing: border-box;
+  }
+  .custom-marquee a {
+    color: {{ section.settings.colorText }};
+  }
+  .custom-marquee .track {
+    position: absolute;
+    bottom: 6px;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee {{ section.settings.speed }}s linear infinite;
+  }
+  .custom-marquee .content {
+    margin-left: {{ section.settings.text_spacing }}px;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-20%);
+    }
+  }
+
+  /* Stop animation on hover */
+  .custom-marquee.stop-on-hover:hover .track {
+    animation-play-state: paused;
+  }
+</style>
+
+<div class="custom-marquee {% if section.settings.stop_on_hover %}stop-on-hover{% endif %}" role="region" {{ block.shopify_attributes }}>
+  {%- if section.settings.text != blank -%}
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">
+    {%- endif -%}
+      <div class="track">
+        {%- for i in (1..10) -%}
+          <span class="content marquee-text">{{ section.settings.text | escape }}</span>
+        {%- endfor -%}
+        {%- if section.settings.link != blank -%}
+          {% render 'icon-arrow' %}
+        {%- endif -%}
+      </div>
+    {%- if section.settings.link != blank -%}
+      </a>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+<script>
+  var marquees = document.getElementsByClassName("marquee-text");
+  for (let i = 0; i < marquees.length; i++) {
+    let str = marquees.item(i).innerHTML;
+    let improvedText = str.replaceAll("|", "            ");
+    marquees.item(i).innerHTML = improvedText;
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Welcome to our store",
+      "label": "Add text to display"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "colorBackground",
+      "label": "Background color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "colorText",
+      "label": "Text color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "number",
+      "id": "font_weight",
+      "label": "Font weight",
+      "default": 400
+    },
+    {
+      "type": "number",
+      "id": "padding_top",
+      "label": "Padding top (px)",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "padding_bottom",
+      "label": "Padding bottom (px)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "text_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Text spacing",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Animation speed (seconds)",
+      "default": 7
+    },
+    {
+      "type": "checkbox",
+      "id": "stop_on_hover",
+      "label": "Stop animation on hover",
+      "default": false
+    },
+    
+  ],
+  "presets": [
+    {
+      "name": "Custom Announcement Bar",
+    }
+  ]
+}
+{% endschema %}
