@@ -1,4 +1,6 @@
 <style>
+  {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  
   .custom-marquee {
     position: relative;
     width: 100vw;
@@ -8,6 +10,7 @@
     color: {{ section.settings.colorText }};
     font-size: {{ section.settings.font_size }}px;
     font-weight: {{ section.settings.font_weight }};
+    font-family: {{section.settings.font_family.family}};
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
     box-sizing: border-box;
@@ -21,6 +24,7 @@
     white-space: nowrap;
     will-change: transform;
     animation: marquee {{ section.settings.speed }}s linear infinite;
+    animation-direction: {{ section.settings.animation_direction }};
   }
   .custom-marquee .content {
     margin-left: {{ section.settings.text_spacing }}px;
@@ -73,6 +77,10 @@
   "name": "Custom Announcement Bar",
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "text",
       "id": "text",
       "default": "Welcome to our store",
@@ -84,16 +92,8 @@
       "label": "Link"
     },
     {
-      "type": "color",
-      "id": "colorBackground",
-      "label": "Background color",
-      "default": "#000"
-    },
-    {
-      "type": "color",
-      "id": "colorText",
-      "label": "Text color",
-      "default": "#fff"
+      "type": "header",
+      "content": "Text"
     },
     {
       "type": "range",
@@ -106,10 +106,68 @@
       "default": 16
     },
     {
-      "type": "number",
+      "type": "range",
+      "id": "text_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Text spacing",
+      "default": 40
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Font family",
+      "default": "montserrat_n4"
+    },
+    {
+      "type": "select",
       "id": "font_weight",
-      "label": "Font weight",
-      "default": 400
+      "label": "Font Weight",
+      "default": "400",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "colorText",
+      "label": "Text color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "colorBackground",
+      "label": "Background color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
     },
     {
       "type": "number",
@@ -124,14 +182,8 @@
       "default": 10
     },
     {
-      "type": "range",
-      "id": "text_spacing",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "unit": "px",
-      "label": "Text spacing",
-      "default": 40
+      "type": "header",
+      "content": "Animation"
     },
     {
       "type": "range",
@@ -139,21 +191,35 @@
       "min": 0,
       "max": 80,
       "step": 1,
-      "unit": "px",
-      "label": "Animation speed (seconds)",
+      "label": "Animation speed",
       "default": 7
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Animation Direction",
+      "default": "normal",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Left"
+        },
+        {
+          "value": "reverse",
+          "label": "Right"
+        }
+      ]
     },
     {
       "type": "checkbox",
       "id": "stop_on_hover",
       "label": "Stop animation on hover",
       "default": false
-    },
-    
+    }
   ],
   "presets": [
     {
-      "name": "Custom Announcement Bar",
+      "name": "Custom Announcement Bar"
     }
   ]
 }

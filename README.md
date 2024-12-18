@@ -1,61 +1,81 @@
-# Custom Announcement Bar for Shopify 🛒
+# Custom Announcement Bar for Shopify
 
-This is a customizable announcement bar that you can easily add to your Shopify store. 🎉 It supports animation, text, and link customization, with an option to stop the animation on hover.
+This is a customizable announcement bar for Shopify stores, designed to allow store owners to display a scrolling text message at the top of their site. It includes options for text customization, font settings, color adjustments, padding, animation speed, and more. The announcement bar also supports linking to any URL.
 
-## Features ✨
-- **Customizable Colors**: Background color and text color.
-- **Adjustable Settings**: Font size, font weight, text spacing, and animation speed.
-- **Linkable Text**: Add a link to the announcement bar.
-- **Stop on Hover**: Pause the animation when hovered.
-- **Easy to Implement**: Simple integration into your Shopify theme.
+## Features:
+- **Customizable Text**: Add any message to display on the announcement bar.
+- **Link Option**: Option to link the announcement bar to any URL.
+- **Font Settings**: Choose your preferred font family, size, and weight.
+- **Text Spacing**: Adjust the spacing between the text elements.
+- **Colors**: Change the text and background color of the announcement bar.
+- **Padding**: Set custom padding for top and bottom.
+- **Animation**: Control the speed and direction of the scrolling animation.
+- **Stop on Hover**: Option to stop the animation when hovering over the bar.
 
-## Installation Steps 🔧
+## How to Use:
 
-### 1. **Copy the Code** 📋
-- Copy the entire code (HTML, CSS, and JavaScript) from this repository.
+### Step 1: Copy the Code
+Copy the code from this repository.
 
-### 2. **Log in to Your Shopify Admin Panel** 🔑
-- Go to [Shopify Admin](https://www.shopify.com/login) and log in.
+### Step 2: Go to Shopify Admin Panel
+- Log in to your Shopify Admin Panel.
 
-### 3. **Go to the Online Store Section** 🖥️
-- In the Shopify Admin, click on **Online Store** in the left-hand menu.
-- Under **Themes**, find your **Current Theme** (active theme).
+### Step 3: Navigate to the Online Store
+- In the left sidebar, click on **Online Store** and then select **Themes**.
 
-### 4. **Edit Your Active Theme** ✏️
-- Click the **Actions** dropdown next to your active theme.
-- Select **Edit Code**.
+### Step 4: Edit Code of Active Theme
+- Find the **Active Theme** you want to add the announcement bar to.
+- Click on **Actions** > **Edit Code**.
 
-### 5. **Add a New Section** ➕
-- In the **Edit Code** screen, find the **Sections** folder and expand it.
-- Click **Add a new section** at the bottom.
+### Step 5: Add New Section
+- In the **Sections** directory, click on **Add a new section**.
+- Name the new section (e.g., `custom-announcement-bar`).
 
-### 6. **Name the New Section** 📝
-- Name the new section `custom-announcement-bar` and click **Create Section**.
+### Step 6: Paste the Code
+- Paste the copied code into the new section file and save it.
 
-### 7. **Paste the Code into the New Section** 💻
-- A new file will be created under the **Sections** folder.
-- Open this file (e.g., `custom-announcement-bar.liquid`) and paste the code you copied earlier.
+### Step 7: Customize Settings
+- Go to **Online Store** > **Themes** > **Customize**.
+- Under **Sections**, you will see the new **Custom Announcement Bar** section.
+- Adjust the settings as per your preferences:
+  - **Text**: Add the text you want to display on the announcement bar.
+  - **Link**: Optionally, add a URL to link the announcement bar.
+  - **Font Size**: Set the font size in pixels.
+  - **Font Family**: Choose your desired font family.
+  - **Font Weight**: Select the font weight (Light, Regular, Medium, Semi-Bold, Bold).
+  - **Text Color**: Choose the text color.
+  - **Background Color**: Set the background color of the bar.
+  - **Padding Top/Bottom**: Adjust the padding for the top and bottom of the bar.
+  - **Animation Speed**: Control the scrolling speed.
+  - **Animation Direction**: Choose the direction of the animation (Left or Right).
+  - **Stop on Hover**: Enable or disable stopping the animation when hovering over the bar.
 
-### 8. **Save the Changes** 💾
-- After pasting the code, click **Save** in the top-right corner.
+### Step 8: Save and Preview
+- Once you have customized the settings, click **Save**.
+- Preview your store to see the announcement bar in action.
 
-### 9. **Add the New Section to Your Theme** 🌟
-- Go back to the **Online Store** > **Themes** section.
-- Click **Customize** for your active theme.
-- In the theme editor, click **Add Section** on the left panel.
-- Scroll down and select the **Custom Announcement Bar** section.
-- Click **Add**.
+## Installation:
 
-### 10. **Customize the Announcement Bar Settings** 🎨
-- Adjust the settings (background color, text color, font size, etc.) directly in the Shopify theme editor.
+1. Copy the code from the repository.
+2. Go to your Shopify Admin Panel.
+3. Navigate to **Online Store > Themes > Actions > Edit Code**.
+4. In the **Sections** folder, click **Add a new section**.
+5. Paste the code into the new section file and save.
+6. Adjust the settings in the Shopify theme editor to customize the announcement bar.
 
-### 11. **Preview and Publish** 🚀
-- Preview the changes and ensure everything looks good.
-- If satisfied, click **Save** to apply the changes to your live store.
+## Configuration Options:
+- **Font Family**: Choose from available fonts.
+- **Font Size**: Set the font size in pixels.
+- **Font Weight**: Select the font weight (Light, Regular, Medium, Semi-Bold, Bold).
+- **Text Color**: Customize the text color.
+- **Background Color**: Choose a background color for the bar.
+- **Padding**: Set padding for the top and bottom of the bar.
+- **Animation Speed**: Control the speed of the scrolling animation.
+- **Animation Direction**: Choose the animation direction (Left or Right).
+- **Stop on Hover**: Enable or disable stopping the animation when hovering over the bar.
 
-## SEO Optimization 🌍
-- Make sure the text in the announcement bar is relevant and includes keywords for SEO.
-- The link in the announcement bar should point to important pages (like products or sales pages) for better SEO ranking.
+## Contribution:
+Feel free to contribute by opening issues or pull requests.
 
-## License 📄
+## License:
 This project is open-source and available under the [MIT License](LICENSE).
