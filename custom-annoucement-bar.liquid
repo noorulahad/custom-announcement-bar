@@ -1,6 +1,6 @@
 <style>
   {{ section.settings.font_family | font_face: font_display: 'swap' }}
-  
+
   .custom-marquee {
     position: relative;
     width: 100vw;
@@ -14,13 +14,14 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
   }
   .custom-marquee a {
     color: {{ section.settings.colorText }};
   }
   .custom-marquee .track {
     position: absolute;
-    bottom: 6px;
     white-space: nowrap;
     will-change: transform;
     animation: marquee {{ section.settings.speed }}s linear infinite;
@@ -44,19 +45,23 @@
   }
 </style>
 
-<div class="custom-marquee {% if section.settings.stop_on_hover %}stop-on-hover{% endif %}" role="region" {{ block.shopify_attributes }}>
+<div
+  class="custom-marquee {% if section.settings.stop_on_hover %}stop-on-hover{% endif %}"
+  role="region"
+  {{ block.shopify_attributes }}
+>
   {%- if section.settings.text != blank -%}
     {%- if section.settings.link != blank -%}
       <a href="{{ section.settings.link }}">
     {%- endif -%}
-      <div class="track">
-        {%- for i in (1..10) -%}
-          <span class="content marquee-text">{{ section.settings.text | escape }}</span>
-        {%- endfor -%}
-        {%- if section.settings.link != blank -%}
-          {% render 'icon-arrow' %}
-        {%- endif -%}
-      </div>
+    <div class="track">
+      {%- for i in (1..10) -%}
+        <span class="content marquee-text">{{ section.settings.text | escape }}</span>
+      {%- endfor -%}
+      {%- if section.settings.link != blank -%}
+        {% render 'icon-arrow' %}
+      {%- endif -%}
+    </div>
     {%- if section.settings.link != blank -%}
       </a>
     {%- endif -%}
@@ -64,10 +69,10 @@
 </div>
 
 <script>
-  var marquees = document.getElementsByClassName("marquee-text");
+  var marquees = document.getElementsByClassName('marquee-text');
   for (let i = 0; i < marquees.length; i++) {
     let str = marquees.item(i).innerHTML;
-    let improvedText = str.replaceAll("|", "            ");
+    let improvedText = str.replaceAll('|', '            ');
     marquees.item(i).innerHTML = improvedText;
   }
 </script>
