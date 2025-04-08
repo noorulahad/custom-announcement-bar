@@ -16,51 +16,91 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    {% if section.settings.stop_on_hover %}
+    cursor: pointer !important;
+    {% endif %}
   }
+  
   .custom-marquee a {
     color: {{ section.settings.colorText }};
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    cursor: pointer;
   }
+  
+  .custom-marquee .track-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
   .custom-marquee .track {
-    position: absolute;
+    position: relative;
     white-space: nowrap;
     will-change: transform;
-    animation: marquee {{ section.settings.speed }}s linear infinite;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    display: inline-block;
+    /* Basic Animation - will be controlled via inline style */
+    animation-duration: {{ section.settings.speed }}s;
+    animation-timing-function: {{ section.settings.easing_function }};
+    animation-iteration-count: infinite;
+    animation-name: marquee;
     animation-direction: {{ section.settings.animation_direction }};
   }
+  
   .custom-marquee .content {
     margin-left: {{ section.settings.text_spacing }}px;
+    display: inline-block;
+    text-transform: {{ section.settings.text_transform }};
+    letter-spacing: {{ section.settings.letter_spacing }}px;
   }
+  
+  /* Add a subtle hover effect for better UX */
+  {% if section.settings.stop_on_hover %}
+  .custom-marquee:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  {% endif %}
+  
   @keyframes marquee {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     to {
-      transform: translateX(-20%);
+      transform: translate3d(-{{ section.settings.animation_distance }}%, 0, 0);
     }
-  }
-
-  /* Stop animation on hover */
-  .custom-marquee.stop-on-hover:hover .track {
-    animation-play-state: paused;
   }
 </style>
 
 <div
-  class="custom-marquee {% if section.settings.stop_on_hover %}stop-on-hover{% endif %}"
+  class="custom-marquee"
   role="region"
+  id="custom-marquee-{{ section.id }}"
+  {% if section.settings.stop_on_hover %}
+  onmouseover="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='paused';"
+  onmouseout="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='running';"
+  ontouchstart="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='paused';"
+  ontouchend="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='running';"
+  {% endif %}
   {{ block.shopify_attributes }}
 >
   {%- if section.settings.text != blank -%}
     {%- if section.settings.link != blank -%}
-      <a href="{{ section.settings.link }}">
+      <a href="{{ section.settings.link }}" class="marquee-link">
     {%- endif -%}
-    <div class="track">
-      {%- for i in (1..10) -%}
-        <span class="content marquee-text">{{ section.settings.text | escape }}</span>
-      {%- endfor -%}
-      {%- if section.settings.link != blank -%}
-        {% render 'icon-arrow' %}
-      {%- endif -%}
+    <div class="track-container">
+      <div class="track" id="marquee-track-{{ section.id }}">
+        {%- for i in (1..10) -%}
+          <span class="content marquee-text">{{ section.settings.text | escape }}</span>
+        {%- endfor -%}
+        {%- if section.settings.link != blank -%}
+          <span class="content" style="margin-left: 10px;">→</span>
+        {%- endif -%}
+      </div>
     </div>
     {%- if section.settings.link != blank -%}
       </a>
@@ -69,12 +109,15 @@
 </div>
 
 <script>
-  var marquees = document.getElementsByClassName('marquee-text');
-  for (let i = 0; i < marquees.length; i++) {
-    let str = marquees.item(i).innerHTML;
-    let improvedText = str.replaceAll('|', '            ');
-    marquees.item(i).innerHTML = improvedText;
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Process pipe characters in text
+    var marquees = document.getElementsByClassName('marquee-text');
+    for (let i = 0; i < marquees.length; i++) {
+      let str = marquees.item(i).innerHTML;
+      let improvedText = str.replaceAll('|', '            ');
+      marquees.item(i).innerHTML = improvedText;
+    }
+  });
 </script>
 
 {% schema %}
@@ -216,10 +259,79 @@
       ]
     },
     {
+      "type": "range",
+      "id": "animation_distance",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Animation distance",
+      "default": 20,
+      "info": "Longer distance means more space between repeating text"
+    },
+    {
+      "type": "select",
+      "id": "easing_function",
+      "label": "Smoothness type",
+      "default": "linear",
+      "options": [
+        {
+          "value": "linear",
+          "label": "Linear (constant)"
+        },
+        {
+          "value": "ease",
+          "label": "Ease (smooth)"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "Ease in-out (very smooth)"
+        }
+      ]
+    },
+    {
       "type": "checkbox",
       "id": "stop_on_hover",
       "label": "Stop animation on hover",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Advanced Features"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text style",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize Each Word"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
     }
   ],
   "presets": [
