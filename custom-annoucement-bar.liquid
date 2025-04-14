@@ -1,4 +1,19 @@
+{% comment %}
+/**
+ * Announcement Bar by Noor
+ * Author: Noor
+ * Version: 1.0.0
+ * Copyright (c) 2024. All rights reserved.
+ * This code is protected and cannot be used without permission
+ */
+{% endcomment %}
+
 <style>
+  /* 
+   * Custom styles for Announcement Bar by Noor
+   * Protected code - Do not copy or modify without permission
+   * Copyright (c) 2024 Noor
+   */
   {{ section.settings.font_family | font_face: font_display: 'swap' }}
 
   .custom-marquee {
@@ -74,39 +89,245 @@
       transform: translate3d(-{{ section.settings.animation_distance }}%, 0, 0);
     }
   }
+
+  /* Add mobile-specific styles after existing styles */
+  @media screen and (max-width: 768px) {
+    .custom-marquee {
+      font-size: {{ section.settings.mobile_font_size }}px;
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+    
+    .custom-marquee .content {
+      margin-left: {{ section.settings.mobile_text_spacing }}px;
+    }
+  }
+
+  /* Single Slide Style Animations */
+  @keyframes slideInFromBottom {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .style-slide {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .style-slide .slides-container {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.font_size }}px;
+    display: flex;
+    align-items: center;
+  }
+
+  .style-slide .announcement-slide {
+    display: none;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .style-slide .announcement-content {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: {{ section.settings.slide_text_alignment }};
+    display: flex;
+    align-items: center;
+    justify-content: {{ section.settings.slide_text_alignment }};
+    min-height: {{ section.settings.font_size }}px;
+  }
+
+  .style-slide .announcement-text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .style-slide .announcement-content a {
+    text-align: inherit;
+    color: {{ section.settings.colorText }};
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: {{ section.settings.slide_text_alignment }};
+  }
+
+  .style-slide .announcement-slide.active {
+    display: block;
+    opacity: 1;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+
+  .style-slide .announcement-slide.active[data-animation="slide-bottom"] {
+    animation-name: slideInFromBottom;
+  }
+
+  .style-slide .announcement-slide.active[data-animation="slide-top"] {
+    animation-name: slideInFromTop;
+  }
+
+  .style-slide .announcement-slide.active[data-animation="fade"] {
+    animation-name: fadeIn;
+  }
+
+  .style-slide .announcement-slide.active[data-animation="slide-left"] {
+    animation-name: slideInFromLeft;
+  }
+
+  .style-slide .announcement-slide.active[data-animation="slide-right"] {
+    animation-name: slideInFromRight;
+  }
+
+  @media screen and (max-width: 768px) {
+    .style-slide .slides-container {
+      min-height: {{ section.settings.mobile_font_size }}px;
+    }
+    
+    .style-slide .announcement-content {
+      min-height: {{ section.settings.mobile_font_size }}px;
+    }
+  }
 </style>
 
-<div
-  class="custom-marquee"
-  role="region"
-  id="custom-marquee-{{ section.id }}"
-  {% if section.settings.stop_on_hover %}
-  onmouseover="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='paused';"
-  onmouseout="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='running';"
-  ontouchstart="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='paused';"
-  ontouchend="document.getElementById('marquee-track-{{ section.id }}').style.animationPlayState='running';"
-  {% endif %}
-  {{ block.shopify_attributes }}
->
-  {%- if section.settings.text != blank -%}
-    {%- if section.settings.link != blank -%}
-      <a href="{{ section.settings.link }}" class="marquee-link">
-    {%- endif -%}
-    <div class="track-container">
-      <div class="track" id="marquee-track-{{ section.id }}">
-        {%- for i in (1..10) -%}
-          <span class="content marquee-text">{{ section.settings.text | escape }}</span>
-        {%- endfor -%}
-        {%- if section.settings.link != blank -%}
-          <span class="content" style="margin-left: 10px;">→</span>
-        {%- endif -%}
+{%- if section.blocks.size > 0 -%}
+  {% comment %} Copyright (c) 2025 Noor Ul Ahad - All rights reserved {% endcomment %}
+  <div
+    class="custom-marquee {% if section.settings.style == 'marquee' %}style-marquee{% else %}style-slide{% endif %}"
+    id="custom-marquee-{{ section.id }}"
+  >
+    {% if section.settings.style == 'marquee' %}
+      <!-- Protected Marquee Style Structure -->
+      <div class="track-container">
+        <div class="track" id="marquee-track-{{ section.id }}"
+          {% if section.settings.stop_on_hover %}
+          onmouseover="this.style.animationPlayState='paused';"
+          onmouseout="this.style.animationPlayState='running';"
+          {% endif %}
+        >
+          {%- for i in (1..5) -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}" class="content marquee-text" {{ block.shopify_attributes }}>
+                    {{ block.settings.text | escape }}
+                    {%- if block.settings.show_arrow -%}
+                      <span style="margin-left: 10px;">→</span>
+                    {%- endif -%}
+                  </a>
+                {%- else -%}
+                  <span class="content marquee-text" {{ block.shopify_attributes }}>
+                    {{ block.settings.text | escape }}
+                  </span>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
       </div>
-    </div>
-    {%- if section.settings.link != blank -%}
-      </a>
-    {%- endif -%}
-  {%- endif -%}
-</div>
+    {% else %}
+      <!-- Protected Single Slide Structure -->
+      <div class="slides-container" id="slides-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <div class="announcement-slide {% if forloop.first %}active{% endif %}" 
+              data-animation="{{ section.settings.slide_animation }}"
+              {{ block.shopify_attributes }}>
+              <div class="announcement-content">
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}">
+                    <span class="announcement-text">{{ block.settings.text | escape }}</span>
+                    {%- if block.settings.show_arrow -%}
+                      <span class="arrow" style="margin-left: 10px;">→</span>
+                    {%- endif -%}
+                  </a>
+                {%- else -%}
+                  <span class="announcement-text">{{ block.settings.text | escape }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.style == 'slide' %}
+    <!-- Protected JavaScript Animation Logic -->
+    <script>
+      // Copyright (c) 2025 Noor Ul Ahad - All rights reserved
+      document.addEventListener('DOMContentLoaded', function() {
+        const slidesContainer = document.getElementById('slides-{{ section.id }}');
+        const slides = slidesContainer.getElementsByClassName('announcement-slide');
+        let currentSlide = 0;
+        
+        function showNextSlide() {
+          slides[currentSlide].classList.remove('active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('active');
+        }
+        
+        if (slides.length > 1) {
+          setInterval(showNextSlide, {{ section.settings.slide_duration | times: 1000 }});
+        }
+      });
+    </script>
+  {% endif %}
+{%- endif -%}
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -122,46 +343,129 @@
 
 {% schema %}
 {
-  "name": "Custom Announcement Bar",
+  "name": "Announcement Bar - Noor",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Display Style"
     },
     {
-      "type": "text",
-      "id": "text",
-      "default": "Welcome to our store",
-      "label": "Add text to display"
+      "type": "select",
+      "id": "style",
+      "label": "Display style",
+      "info": "Choose how announcement will be displayed",
+      "options": [
+        {
+          "value": "marquee",
+          "label": "Continuous marquee"
+        },
+        {
+          "value": "slide",
+          "label": "Single slide"
+        }
+      ],
+      "default": "marquee"
     },
     {
-      "type": "url",
-      "id": "link",
-      "label": "Link"
+      "type": "select",
+      "id": "slide_text_alignment",
+      "label": "Text alignment",
+      "info": "Alignment for single slide style",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
     },
     {
       "type": "header",
-      "content": "Text"
+      "content": "Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "slide_animation",
+      "label": "Animation effect",
+      "info": "Choose animation style for single slide",
+      "options": [
+        {
+          "value": "slide-bottom",
+          "label": "Slide from bottom"
+        },
+        {
+          "value": "slide-top",
+          "label": "Slide from top"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide-left",
+          "label": "Slide from left"
+        },
+        {
+          "value": "slide-right",
+          "label": "Slide from right"
+        }
+      ],
+      "default": "slide-bottom"
     },
     {
       "type": "range",
-      "id": "font_size",
-      "min": 0,
-      "max": 60,
+      "id": "slide_duration",
+      "min": 2,
+      "max": 10,
       "step": 1,
-      "unit": "px",
-      "label": "Font size",
-      "default": 16
+      "unit": "s",
+      "label": "Slide duration",
+      "info": "Time between slides",
+      "default": 5
     },
     {
       "type": "range",
-      "id": "text_spacing",
+      "id": "speed",
       "min": 0,
       "max": 80,
       "step": 1,
-      "unit": "px",
-      "label": "Text spacing",
-      "default": 40
+      "label": "Marquee speed",
+      "info": "Speed for continuous marquee style",
+      "default": 7
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Marquee direction",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Left to right"
+        },
+        {
+          "value": "reverse",
+          "label": "Right to left"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "checkbox",
+      "id": "stop_on_hover",
+      "label": "Pause on hover",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Typography"
     },
     {
       "type": "font_picker",
@@ -170,10 +474,19 @@
       "default": "montserrat_n4"
     },
     {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
       "type": "select",
       "id": "font_weight",
-      "label": "Font Weight",
-      "default": "400",
+      "label": "Font weight",
       "options": [
         {
           "value": "300",
@@ -195,7 +508,42 @@
           "value": "700",
           "label": "Bold"
         }
-      ]
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize Each Word"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
     },
     {
       "type": "header",
@@ -215,128 +563,110 @@
     },
     {
       "type": "header",
-      "content": "Padding"
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "text_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Space between texts",
+      "default": 40
     },
     {
       "type": "number",
       "id": "padding_top",
-      "label": "Padding top (px)",
-      "default": 30
+      "label": "Top padding",
+      "default": 10
     },
     {
       "type": "number",
       "id": "padding_bottom",
-      "label": "Padding bottom (px)",
+      "label": "Bottom padding",
       "default": 10
     },
     {
       "type": "header",
-      "content": "Animation"
+      "content": "Mobile Settings"
     },
     {
       "type": "range",
-      "id": "speed",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "label": "Animation speed",
-      "default": 7
-    },
-    {
-      "type": "select",
-      "id": "animation_direction",
-      "label": "Animation Direction",
-      "default": "normal",
-      "options": [
-        {
-          "value": "normal",
-          "label": "Left"
-        },
-        {
-          "value": "reverse",
-          "label": "Right"
-        }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "animation_distance",
+      "id": "mobile_font_size",
       "min": 10,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "Animation distance",
-      "default": 20,
-      "info": "Longer distance means more space between repeating text"
-    },
-    {
-      "type": "select",
-      "id": "easing_function",
-      "label": "Smoothness type",
-      "default": "linear",
-      "options": [
-        {
-          "value": "linear",
-          "label": "Linear (constant)"
-        },
-        {
-          "value": "ease",
-          "label": "Ease (smooth)"
-        },
-        {
-          "value": "ease-in-out",
-          "label": "Ease in-out (very smooth)"
-        }
-      ]
-    },
-    {
-      "type": "checkbox",
-      "id": "stop_on_hover",
-      "label": "Stop animation on hover",
-      "default": false
-    },
-    {
-      "type": "header",
-      "content": "Advanced Features"
-    },
-    {
-      "type": "select",
-      "id": "text_transform",
-      "label": "Text style",
-      "default": "none",
-      "options": [
-        {
-          "value": "none",
-          "label": "Normal"
-        },
-        {
-          "value": "uppercase",
-          "label": "UPPERCASE"
-        },
-        {
-          "value": "lowercase",
-          "label": "lowercase"
-        },
-        {
-          "value": "capitalize",
-          "label": "Capitalize Each Word"
-        }
-      ]
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile font size",
+      "default": 14
     },
     {
       "type": "range",
-      "id": "letter_spacing",
+      "id": "mobile_text_spacing",
       "min": 0,
-      "max": 10,
-      "step": 0.5,
+      "max": 60,
+      "step": 1,
       "unit": "px",
-      "label": "Letter spacing",
-      "default": 0
+      "label": "Mobile text spacing",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "default": 10
+    },
+    {
+      "type": "number",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "default": 10
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Announce something here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_arrow",
+          "label": "Show arrow after text",
+          "default": false
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Custom Announcement Bar"
+      "name": "Announcement Bar - Noor",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on orders over $50",
+            "show_arrow": true
+          }
+        }
+      ]
     }
   ]
 }

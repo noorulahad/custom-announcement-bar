@@ -1,98 +1,138 @@
-# Custom Announcement Bar for Shopify
+# Announcement Bar - Noor
 
-This is a customizable announcement bar for Shopify stores, designed to allow store owners to display a scrolling text message at the top of their site. It includes options for text customization, font settings, color adjustments, padding, animation speed, and more. The announcement bar also supports linking to any URL.
+A powerful and feature-rich announcement bar solution for Shopify stores, offering seamless integration and extensive customization options. This announcement bar supports both marquee (continuous scroll) and single slide animations, making it perfect for displaying important messages, promotions, or announcements.
 
-## Features:
-- **Customizable Text**: Add any message to display on the announcement bar.
-- **Link Option**: Option to link the announcement bar to any URL.
-- **Font Settings**: Choose your preferred font family, size, and weight.
-- **Text Spacing**: Adjust the spacing between the text elements.
-- **Text Transform**: Display text as UPPERCASE, lowercase, Capitalized, or normal.
-- **Letter Spacing**: Control the spacing between individual letters.
-- **Colors**: Change the text and background color of the announcement bar.
-- **Padding**: Set custom padding for top and bottom.
-- **Animation**: Control the speed, direction, and distance of the scrolling animation.
-- **Animation Smoothness**: Choose between linear, ease, or ease-in-out animation types.
-- **Stop on Hover**: Option to stop the animation when hovering over the bar, with visual feedback.
+## Key Features
 
-## How to Use:
+### Display Styles
+- **Dual Display Modes**
+  - Marquee Style (Continuous Scroll)
+  - Single Slide Style
+- **Text Alignment Options**
+  - Left
+  - Center
+  - Right
 
-### Step 1: Copy the Code
-Copy the code from this repository.
+### Animation Features
+- **Marquee Mode**
+  - Customizable scroll speed (0-80)
+  - Bi-directional animation (Left-to-Right or Right-to-Left)
+  - Pause on hover functionality
+  - Hardware-accelerated animations for smooth performance
+  - Transform3D and will-change properties for optimal rendering
 
-### Step 2: Go to Shopify Admin Panel
-- Log in to your Shopify Admin Panel.
+- **Single Slide Mode**
+  - Multiple animation effects:
+    - Slide from bottom
+    - Slide from top
+    - Fade transition
+    - Slide from left
+    - Slide from right
+  - Customizable slide duration (2-10 seconds)
+  - Smooth transitions between slides
 
-### Step 3: Navigate to the Online Store
-- In the left sidebar, click on **Online Store** and then select **Themes**.
+### Typography Customization
+- **Font Control**
+  - Custom font family selection via Shopify's font picker
+  - Adjustable font size (12-60px for desktop, 10-40px for mobile)
+  - Multiple font weight options:
+    - Light (300)
+    - Regular (400)
+    - Medium (500)
+    - Semi-Bold (600)
+    - Bold (700)
 
-### Step 4: Edit Code of Active Theme
-- Find the **Active Theme** you want to add the announcement bar to.
-- Click on **Actions** > **Edit Code**.
+- **Text Styling**
+  - Text transformation options:
+    - Normal
+    - UPPERCASE
+    - lowercase
+    - Capitalize Each Word
+  - Adjustable letter spacing (0-10px)
+  - Customizable text spacing between announcements
 
-### Step 5: Add New Section
-- In the **Sections** directory, click on **Add a new section**.
-- Name the new section (e.g., `custom-announcement-bar`).
+### Responsive Design
+- **Mobile-Optimized**
+  - Separate mobile font size settings
+  - Mobile-specific text spacing
+  - Adaptive padding for different screen sizes
+  - Touch-friendly interface
 
-### Step 6: Paste the Code
-- Paste the copied code into the new section file and save it.
+- **Spacing Control**
+  - Independent padding settings for:
+    - Desktop top/bottom padding
+    - Mobile top/bottom padding
+  - Customizable text spacing for both desktop and mobile
 
-### Step 7: Customize Settings
-- Go to **Online Store** > **Themes** > **Customize**.
-- Under **Sections**, you will see the new **Custom Announcement Bar** section.
-- Adjust the settings as per your preferences:
-  - **Text**: Add the text you want to display on the announcement bar.
-  - **Link**: Optionally, add a URL to link the announcement bar.
-  - **Font Size**: Set the font size in pixels.
-  - **Font Family**: Choose your desired font family.
-  - **Font Weight**: Select the font weight (Light, Regular, Medium, Semi-Bold, Bold).
-  - **Text Transform**: Choose text case style (UPPERCASE, lowercase, Capitalize Each Word, Normal).
-  - **Letter Spacing**: Adjust spacing between letters for better visibility.
-  - **Text Color**: Choose the text color.
-  - **Background Color**: Set the background color of the bar.
-  - **Padding Top/Bottom**: Adjust the padding for the top and bottom of the bar.
-  - **Animation Speed**: Control the scrolling speed.
-  - **Animation Direction**: Choose the direction of the animation (Left or Right).
-  - **Animation Distance**: Control how far the text scrolls before repeating.
-  - **Animation Smoothness**: Select the animation style (Linear, Ease, Ease-in-out).
-  - **Stop on Hover**: Enable or disable stopping the animation when hovering over the bar.
+### Visual Customization
+- **Color Management**
+  - Custom text color selection
+  - Background color customization
+  - High contrast visibility options
 
-### Step 8: Save and Preview
-- Once you have customized the settings, click **Save**.
-- Preview your store to see the announcement bar in action.
+### Content Management
+- **Multiple Announcements**
+  - Support for multiple text blocks
+  - Optional link attachment to each announcement
+  - Optional arrow indicator for linked announcements
+  - Easy content management through Shopify admin
 
-## Installation:
+### Performance Optimization
+- **Enhanced Performance**
+  - CSS hardware acceleration
+  - Optimized animation frames
+  - Minimal DOM manipulation
+  - Efficient event handling
 
-1. Copy the code from the repository.
-2. Go to your Shopify Admin Panel.
-3. Navigate to **Online Store > Themes > Actions > Edit Code**.
-4. In the **Sections** folder, click **Add a new section**.
-5. Paste the code into the new section file and save.
-6. Adjust the settings in the Shopify theme editor to customize the announcement bar.
+## Technical Implementation
 
-## Configuration Options:
-- **Font Family**: Choose from available fonts.
-- **Font Size**: Set the font size in pixels.
-- **Font Weight**: Select the font weight (Light, Regular, Medium, Semi-Bold, Bold).
-- **Text Transform**: Control text capitalization (UPPERCASE, lowercase, Capitalize Each Word, Normal).
-- **Letter Spacing**: Adjust spacing between letters (0-10px).
-- **Text Color**: Customize the text color.
-- **Background Color**: Choose a background color for the bar.
-- **Padding**: Set padding for the top and bottom of the bar.
-- **Animation Speed**: Control the speed of the scrolling animation.
-- **Animation Direction**: Choose the animation direction (Left or Right).
-- **Animation Distance**: Control how far the text moves before repeating.
-- **Animation Smoothness**: Select the type of animation easing function.
-- **Stop on Hover**: Enable or disable stopping the animation when hovering over the bar.
+### CSS Features
+```css
+.custom-marquee {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+```
+- Utilizes modern CSS properties for smooth animations
+- Implements hardware acceleration for better performance
+- Optimized for both desktop and mobile devices
 
-## Technical Improvements:
-- Uses hardware-accelerated animations for smooth performance
-- Touch-friendly for mobile devices
-- Visual feedback when hovering for better UX
-- Optimized for performance with transform3d and will-change properties
+### JavaScript Optimization
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  // Efficient slide management
+  // Optimized animation timing
+  // Smart event handling
+});
+```
 
-## Contribution:
-Feel free to contribute by opening issues or pull requests.
+## Installation Guide
 
-## License:
-This project is open-source and available under the [MIT License](LICENSE).
+1. **Theme Integration**
+   - Add section through Shopify admin
+   - No additional dependencies required
+   - Seamless integration with existing theme
+
+2. **Configuration**
+   - Access through theme customizer
+   - Real-time preview of changes
+   - Easy-to-use interface
+
+## Best Practices
+- Mobile-first responsive design
+- Performance-optimized animations
+- Accessibility-compliant implementation
+- SEO-friendly structure
+
+## Copyright Notice
+This code is protected under copyright law. Unauthorized use, modification, or distribution is strictly prohibited.
+
+© 2025 Noor Ul Ahad - All rights reserved
+
+## Support
+For support or customization requests, please contact the author.
+
+---
+*Note: This announcement bar is designed to provide maximum flexibility while maintaining optimal performance across all devices and browsers.*
