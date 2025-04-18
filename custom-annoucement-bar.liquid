@@ -1,21 +1,22 @@
 {% comment %}
-/**
- * Announcement Bar by Noor
- * Author: Noor
- * Version: 1.0.0
- * Copyright (c) 2024. All rights reserved.
- * This code is protected and cannot be used without permission
- */
+  Custom Announcement Bar Section
+  Developed by: Noor Ul Ahad
+  This section can be used by anyone, free for all.
+  Features:
+    - Two display styles: marquee and single slide
+    - Multiple animation effects
+    - Mobile responsive
+    - Customizable colors, fonts and spacing
+    - Multiple announcements with links
 {% endcomment %}
 
 <style>
-  /* 
-   * Custom styles for Announcement Bar by Noor
-   * Protected code - Do not copy or modify without permission
-   * Copyright (c) 2024 Noor
-   */
   {{ section.settings.font_family | font_face: font_display: 'swap' }}
 
+  /* 
+    Main container styles
+    Author: Noor Ul Ahad
+  */
   .custom-marquee {
     position: relative;
     width: 100vw;
@@ -44,13 +45,17 @@
     cursor: pointer;
   }
   
-  .custom-marquee .track-container {
+  /* 
+    Marquee Style - for continuous scrolling announcements 
+    Author: Noor Ul Ahad
+  */
+  .style-marquee .track-container {
     position: relative;
     width: 100%;
     overflow: hidden;
   }
   
-  .custom-marquee .track {
+  .style-marquee .track {
     position: relative;
     white-space: nowrap;
     will-change: transform;
@@ -58,7 +63,6 @@
     backface-visibility: hidden;
     perspective: 1000px;
     display: inline-block;
-    /* Basic Animation - will be controlled via inline style */
     animation-duration: {{ section.settings.speed }}s;
     animation-timing-function: {{ section.settings.easing_function }};
     animation-iteration-count: infinite;
@@ -66,7 +70,7 @@
     animation-direction: {{ section.settings.animation_direction }};
   }
   
-  .custom-marquee .content {
+  .style-marquee .content {
     margin-left: {{ section.settings.text_spacing }}px;
     display: inline-block;
     text-transform: {{ section.settings.text_transform }};
@@ -81,29 +85,10 @@
   }
   {% endif %}
   
-  @keyframes marquee {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-{{ section.settings.animation_distance }}%, 0, 0);
-    }
-  }
-
-  /* Add mobile-specific styles after existing styles */
-  @media screen and (max-width: 768px) {
-    .custom-marquee {
-      font-size: {{ section.settings.mobile_font_size }}px;
-      padding-top: {{ section.settings.mobile_padding_top }}px;
-      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
-    }
-    
-    .custom-marquee .content {
-      margin-left: {{ section.settings.mobile_text_spacing }}px;
-    }
-  }
-
-  /* Single Slide Style Animations */
+  /* 
+    Single Slide Style Animations 
+    Author: Noor Ul Ahad
+  */
   @keyframes slideInFromBottom {
     0% {
       transform: translateY(100%);
@@ -114,7 +99,7 @@
       opacity: 1;
     }
   }
-
+  
   @keyframes slideInFromTop {
     0% {
       transform: translateY(-100%);
@@ -125,7 +110,7 @@
       opacity: 1;
     }
   }
-
+  
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -134,7 +119,7 @@
       opacity: 1;
     }
   }
-
+  
   @keyframes slideInFromLeft {
     0% {
       transform: translateX(-100%);
@@ -145,7 +130,7 @@
       opacity: 1;
     }
   }
-
+  
   @keyframes slideInFromRight {
     0% {
       transform: translateX(100%);
@@ -156,12 +141,16 @@
       opacity: 1;
     }
   }
-
+  
+  /* 
+    Single Slide Style - for one announcement at a time
+    Author: Noor Ul Ahad
+  */
   .style-slide {
     overflow: hidden;
     width: 100%;
   }
-
+  
   .style-slide .slides-container {
     position: relative;
     width: 100%;
@@ -169,7 +158,7 @@
     display: flex;
     align-items: center;
   }
-
+  
   .style-slide .announcement-slide {
     display: none;
     opacity: 0;
@@ -179,7 +168,7 @@
     left: 0;
     right: 0;
   }
-
+  
   .style-slide .announcement-content {
     width: 100%;
     padding: 0 20px;
@@ -190,12 +179,12 @@
     justify-content: {{ section.settings.slide_text_alignment }};
     min-height: {{ section.settings.font_size }}px;
   }
-
+  
   .style-slide .announcement-text {
     display: inline-block;
     vertical-align: middle;
   }
-
+  
   .style-slide .announcement-content a {
     text-align: inherit;
     color: {{ section.settings.colorText }};
@@ -205,35 +194,62 @@
     align-items: center;
     justify-content: {{ section.settings.slide_text_alignment }};
   }
-
+  
   .style-slide .announcement-slide.active {
     display: block;
     opacity: 1;
     animation-duration: 0.5s;
     animation-fill-mode: both;
   }
-
+  
   .style-slide .announcement-slide.active[data-animation="slide-bottom"] {
     animation-name: slideInFromBottom;
   }
-
+  
   .style-slide .announcement-slide.active[data-animation="slide-top"] {
     animation-name: slideInFromTop;
   }
-
+  
   .style-slide .announcement-slide.active[data-animation="fade"] {
     animation-name: fadeIn;
   }
-
+  
   .style-slide .announcement-slide.active[data-animation="slide-left"] {
     animation-name: slideInFromLeft;
   }
-
+  
   .style-slide .announcement-slide.active[data-animation="slide-right"] {
     animation-name: slideInFromRight;
   }
-
+  
+  /* 
+    Basic Animation for marquee
+    Author: Noor Ul Ahad
+  */
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-{{ section.settings.animation_distance }}%, 0, 0);
+    }
+  }
+  
+  /* 
+    Mobile Responsive Styles
+    Author: Noor Ul Ahad
+  */
   @media screen and (max-width: 768px) {
+    .custom-marquee {
+      font-size: {{ section.settings.mobile_font_size }}px;
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+    
+    .style-marquee .content {
+      margin-left: {{ section.settings.mobile_text_spacing }}px;
+    }
+    
     .style-slide .slides-container {
       min-height: {{ section.settings.mobile_font_size }}px;
     }
@@ -245,13 +261,12 @@
 </style>
 
 {%- if section.blocks.size > 0 -%}
-  {% comment %} Copyright (c) 2025 Noor Ul Ahad - All rights reserved {% endcomment %}
   <div
     class="custom-marquee {% if section.settings.style == 'marquee' %}style-marquee{% else %}style-slide{% endif %}"
     id="custom-marquee-{{ section.id }}"
   >
     {% if section.settings.style == 'marquee' %}
-      <!-- Protected Marquee Style Structure -->
+      <!-- Marquee Style - Author: Noor Ul Ahad -->
       <div class="track-container">
         <div class="track" id="marquee-track-{{ section.id }}"
           {% if section.settings.stop_on_hover %}
@@ -280,7 +295,7 @@
         </div>
       </div>
     {% else %}
-      <!-- Protected Single Slide Structure -->
+      <!-- Single Slide Style - Author: Noor Ul Ahad -->
       <div class="slides-container" id="slides-{{ section.id }}">
         {%- for block in section.blocks -%}
           {%- if block.settings.text != blank -%}
@@ -307,17 +322,22 @@
   </div>
 
   {% if section.settings.style == 'slide' %}
-    <!-- Protected JavaScript Animation Logic -->
     <script>
-      // Copyright (c) 2025 Noor Ul Ahad - All rights reserved
+      // Single slide animation script
+      // Author: Noor Ul Ahad
       document.addEventListener('DOMContentLoaded', function() {
         const slidesContainer = document.getElementById('slides-{{ section.id }}');
         const slides = slidesContainer.getElementsByClassName('announcement-slide');
         let currentSlide = 0;
         
         function showNextSlide() {
+          // Remove active class from current slide
           slides[currentSlide].classList.remove('active');
+          
+          // Update current slide index
           currentSlide = (currentSlide + 1) % slides.length;
+          
+          // Add active class to new slide
           slides[currentSlide].classList.add('active');
         }
         
@@ -330,6 +350,8 @@
 {%- endif -%}
 
 <script>
+  // Text processing script
+  // Author: Noor Ul Ahad
   document.addEventListener('DOMContentLoaded', function() {
     // Process pipe characters in text
     var marquees = document.getElementsByClassName('marquee-text');
@@ -343,7 +365,7 @@
 
 {% schema %}
 {
-  "name": "Announcement Bar - Noor",
+  "name": "Custom Announcement Bar",
   "settings": [
     {
       "type": "header",
@@ -368,34 +390,9 @@
     },
     {
       "type": "select",
-      "id": "slide_text_alignment",
-      "label": "Text alignment",
-      "info": "Alignment for single slide style",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "header",
-      "content": "Animation Settings"
-    },
-    {
-      "type": "select",
       "id": "slide_animation",
-      "label": "Animation effect",
-      "info": "Choose animation style for single slide",
+      "label": "Slide animation effect",
+      "info": "Choose how each announcement will animate",
       "options": [
         {
           "value": "slide-bottom",
@@ -427,45 +424,54 @@
       "max": 10,
       "step": 1,
       "unit": "s",
-      "label": "Slide duration",
-      "info": "Time between slides",
-      "default": 5
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "label": "Marquee speed",
-      "info": "Speed for continuous marquee style",
-      "default": 7
+      "label": "Slide duration (Single slide style)",
+      "default": 5,
+      "info": "Time each announcement is shown before switching to next"
     },
     {
       "type": "select",
-      "id": "animation_direction",
-      "label": "Marquee direction",
+      "id": "slide_text_alignment",
+      "label": "Slide text alignment",
+      "info": "Alignment for single slide style",
       "options": [
         {
-          "value": "normal",
-          "label": "Left to right"
+          "value": "left",
+          "label": "Left"
         },
         {
-          "value": "reverse",
-          "label": "Right to left"
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
         }
       ],
-      "default": "normal"
-    },
-    {
-      "type": "checkbox",
-      "id": "stop_on_hover",
-      "label": "Pause on hover",
-      "default": false
+      "default": "center"
     },
     {
       "type": "header",
-      "content": "Typography"
+      "content": "Style Settings"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "label": "Text spacing",
+      "default": 40
     },
     {
       "type": "font_picker",
@@ -474,19 +480,10 @@
       "default": "montserrat_n4"
     },
     {
-      "type": "range",
-      "id": "font_size",
-      "min": 12,
-      "max": 60,
-      "step": 1,
-      "unit": "px",
-      "label": "Font size",
-      "default": 16
-    },
-    {
       "type": "select",
       "id": "font_weight",
-      "label": "Font weight",
+      "label": "Font Weight",
+      "default": "400",
       "options": [
         {
           "value": "300",
@@ -508,42 +505,7 @@
           "value": "700",
           "label": "Bold"
         }
-      ],
-      "default": "400"
-    },
-    {
-      "type": "select",
-      "id": "text_transform",
-      "label": "Text transform",
-      "options": [
-        {
-          "value": "none",
-          "label": "Normal"
-        },
-        {
-          "value": "uppercase",
-          "label": "UPPERCASE"
-        },
-        {
-          "value": "lowercase",
-          "label": "lowercase"
-        },
-        {
-          "value": "capitalize",
-          "label": "Capitalize Each Word"
-        }
-      ],
-      "default": "none"
-    },
-    {
-      "type": "range",
-      "id": "letter_spacing",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "unit": "px",
-      "label": "Letter spacing",
-      "default": 0
+      ]
     },
     {
       "type": "header",
@@ -563,29 +525,123 @@
     },
     {
       "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "text_spacing",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "unit": "px",
-      "label": "Space between texts",
-      "default": 40
+      "content": "Padding"
     },
     {
       "type": "number",
       "id": "padding_top",
-      "label": "Top padding",
-      "default": 10
+      "label": "Padding top (px)",
+      "default": 30
     },
     {
       "type": "number",
       "id": "padding_bottom",
-      "label": "Bottom padding",
+      "label": "Padding bottom (px)",
       "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "label": "Animation speed",
+      "default": 7
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Animation Direction",
+      "default": "normal",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Left"
+        },
+        {
+          "value": "reverse",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "animation_distance",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Animation distance",
+      "default": 20,
+      "info": "Longer distance means more space between repeating text"
+    },
+    {
+      "type": "select",
+      "id": "easing_function",
+      "label": "Smoothness type",
+      "default": "linear",
+      "options": [
+        {
+          "value": "linear",
+          "label": "Linear (constant)"
+        },
+        {
+          "value": "ease",
+          "label": "Ease (smooth)"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "Ease in-out (very smooth)"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "stop_on_hover",
+      "label": "Stop animation on hover",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Advanced Features"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text style",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "lowercase",
+          "label": "lowercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize Each Word"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "label": "Letter spacing",
+      "default": 0
     },
     {
       "type": "header",
@@ -594,7 +650,7 @@
     {
       "type": "range",
       "id": "mobile_font_size",
-      "min": 10,
+      "min": 0,
       "max": 40,
       "step": 1,
       "unit": "px",
@@ -614,14 +670,14 @@
     {
       "type": "number",
       "id": "mobile_padding_top",
-      "label": "Mobile top padding",
-      "default": 10
+      "label": "Mobile padding top (px)",
+      "default": 20
     },
     {
       "type": "number",
       "id": "mobile_padding_bottom",
-      "label": "Mobile bottom padding",
-      "default": 10
+      "label": "Mobile padding bottom (px)",
+      "default": 8
     }
   ],
   "blocks": [
@@ -651,7 +707,7 @@
   ],
   "presets": [
     {
-      "name": "Announcement Bar - Noor",
+      "name": "Custom Announcement Bar",
       "blocks": [
         {
           "type": "announcement",
@@ -671,3 +727,9 @@
   ]
 }
 {% endschema %}
+
+{% comment %}
+  Custom Announcement Bar by Noor Ul Ahad
+  Available for everyone to use
+  Copyright (c) Free for all
+{% endcomment %}
